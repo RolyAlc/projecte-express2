@@ -6,3 +6,7 @@
 Servidor ----- Client
 ts -------- futter
 ```
+
+```bash
+npm run dev
+```

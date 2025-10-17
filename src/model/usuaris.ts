@@ -28,3 +28,13 @@ export const obtenirUsuaris = () =>{
 export const obtenirUsuariPerId = (id: number): Usuari | undefined => {
   return usuaris.find(u => u.id === id);
 };
+
+// Funció per eliminar un usuari per id
+export const eliminarUsuari = (id: number): boolean => {
+  const index = usuaris.findIndex(u => u.id === id);
+  if (index !== -1) {
+    usuaris.splice(index, 1);
+    return true;
+  }
+  return false;
+};

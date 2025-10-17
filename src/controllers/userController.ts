@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {afegirUsuari, obtenirUsuaris, obtenirUsuariPerId} from "./../model/usuaris.js";
+import {afegirUsuari, obtenirUsuaris, obtenirUsuariPerId, eliminarUsuari} from "./../model/usuaris.js";
 
 
 
@@ -32,4 +32,15 @@ export const getUserById = (req: Request<UserParams>, res: Response) => {
   }
 
   res.json(usuari);
+};
+
+export const deleteUser = (req: Request<UserParams>, res: Response) => {
+  const id = parseInt(req.params.id);
+  const success = eliminarUsuari(id);
+
+  if (!success) {
+    return res.status(404).json({ error: "Usuari no trobat" });
+  }
+
+  res.status(200).json({ missatge: "Usuari eliminat correctament" });
 };
