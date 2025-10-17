@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {afegirUsuari, obtenirUsuaris, obtenirUsuariPerId, eliminarUsuari} from "./../model/usuaris.js";
+import {afegirUsuari, obtenirUsuaris, obtenirUsuariPerId, eliminarUsuari, Usuari, usuaris} from "./../model/usuaris.js";
 
 
 
@@ -10,10 +10,15 @@ export const createUser = (req: Request, res: Response) => {
     return res.status(400).json({ error: "Nom i edat són obligatoris." });
   }
 
-  // Simula la creació de l'usuari
-  const usuariCreat = { nom, edat };
+  const nouUsuari: Usuari = {
+    id: usuaris.length > 0 ? Math.max(...usuaris.map(u => u.id)) + 1 : 0,
+    nom,
+    edat,
+  };
 
-  res.status(201).json({ missatge: "Usuari creat correctament", usuari: usuariCreat });
+  afegirUsuari(nouUsuari);
+
+  res.status(201).json({ missatge: "Usuari creat correctament", usuari: nouUsuari });
 };
 
 
